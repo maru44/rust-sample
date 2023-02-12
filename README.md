@@ -6,6 +6,8 @@ Start Project
 cargo new rust_sample
 ```
 
+## Server
+
 Add `axum`
 
 ```shell
@@ -17,4 +19,10 @@ Add with feature
 
 ```shell
 cargo add serde --features=derive
+```
+
+## DB
+
+```shell
+cargo install sqlx-cli
 ```
