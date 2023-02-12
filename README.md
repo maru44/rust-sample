@@ -12,3 +12,9 @@ Add `axum`
 cargo add axum
 # https://crates.io/crates/axum
 ```
+
+Add with feature
+
+```shell
+cargo add serde --features=derive
+```
