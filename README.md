@@ -26,3 +26,16 @@ cargo add serde --features=derive
 ```shell
 cargo install sqlx-cli
 ```
+
+create migrate file
+
+```shell
+sqlx migrate add init
+# pwd = infra/db
+```
+
+migration
+
+```shell
+sqlx migrate run --database-url postgres://root:password@127.0.0.1:5432
+```
