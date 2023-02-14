@@ -1,7 +1,8 @@
-use chrono::{Date, DateTime, Utc};
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+use sqlx::FromRow;
 
-#[derive(Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Serialize, Deserialize, FromRow)]
 pub struct User {
     pub id: String,
     pub username: String,
@@ -10,7 +11,7 @@ pub struct User {
     pub updated_at: DateTime<Utc>,
 }
 
-#[derive(Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct UserInput {
     pub username: String,
     pub email: String,

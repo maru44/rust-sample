@@ -1,6 +1,5 @@
-// use std::fmt::Error;
-use sqlx::{pool::PoolConnection, postgres::PgPool, PgConnection, Postgres};
-use std::error::Error;
+use anyhow::{Error, Ok, Result};
+use sqlx::postgres::PgPool;
 
 use crate::model::user::{User, UserInput};
 
@@ -10,10 +9,7 @@ use crate::model::user::{User, UserInput};
 //     Extension(db): Extension<
 // )
 
-pub async fn create_user(
-    input: UserInput,
-    conn: &mut PoolConnection<Postgres>,
-) -> Result<(), Error> {
+pub async fn create_user(input: UserInput, pool: &PgPool) -> Result<()> {
     sqlx::query(
         "
         INSERT INTO users (username, email) VALUES ($1, $2);
@@ -21,15 +17,18 @@ pub async fn create_user(
     )
     .bind(input.username)
     .bind(input.email)
-    .execute(conn)
+    .fetch_one(pool)
     .await?;
 
-    // match inserted {
-    //     Err(err) => return Err(err),
-    //     Ok(_) => (),
-    // }
-    // if let Err(err) = inserted {
-    //     return Err(err);
-    // }
     Ok(())
+}
+
+pub async fn list_users(pool: &PgPool) -> Result<Vec<User>> {
+    Ok(sqlx::query_as(
+        r#"
+SELECT * FROM users;
+        "#,
+    )
+    .fetch_all(pool)
+    .await?)
 }

@@ -1,5 +1,5 @@
 use once_cell::sync::Lazy;
-use sqlx::{postgres::PgPoolOptions, Error, PgConnection, PgPool};
+use sqlx::{postgres::PgPoolOptions, Error, PgPool};
 
 struct Config {
     postgres_host: String,
