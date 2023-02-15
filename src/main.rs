@@ -4,7 +4,6 @@ use axum::{
     routing::{get, post},
     Json, Router, Server,
 };
-use serde::{Deserialize, Serialize};
 use serde_json::json;
 use std::net::SocketAddr;
 
@@ -53,15 +52,7 @@ async fn users() -> impl IntoResponse {
                     return (StatusCode::BAD_REQUEST, Json(json!({"message": "a"})));
                 }
                 Ok(us) => {
-                    // let users: &[User] = &us;
-                    println!("{} users", us.len());
-                    // let serialized: String = serde_json::to_string(&users)
-                    // let j = Json(users);
-                    // (StatusCode::OK, j)
-                    // let u = &us[0];
-                    // (StatusCode::OK, Json(u))
-                    return (StatusCode::BAD_REQUEST, Json(json!({"a": us.len()})));
-                    // return Json(us);
+                    return (StatusCode::BAD_REQUEST, Json(json!(us)));
                 }
             }
         }

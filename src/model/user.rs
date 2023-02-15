@@ -1,18 +1,19 @@
-use chrono::{DateTime, Utc};
+use chrono::NaiveDateTime;
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
+use uuid::Uuid;
 
 #[derive(Clone, PartialEq, Eq, Serialize, Deserialize, FromRow)]
 pub struct User {
-    pub id: String,
-    pub username: String,
+    pub id: Uuid,
+    pub name: String,
     pub email: String,
-    pub created_at: DateTime<Utc>,
-    pub updated_at: DateTime<Utc>,
+    pub created_at: NaiveDateTime,
+    pub updated_at: NaiveDateTime,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct UserInput {
-    pub username: String,
+    pub name: String,
     pub email: String,
 }

@@ -1,8 +1,8 @@
 .PHONY: post
 
 post:
-	@curl -X POST -H 'Content-Type: application/json' -d '{"username": "maru"}' http://localhost:8000/create
+	@curl -X POST -H 'Content-Type: application/json' -d '{"name": "maru", "email": "aa@example.com"}' http://localhost:8000/users
 
-migrate:
-	@cd infra/db && \
-	sqlx migrate run --database-url postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}
+db/migrate:
+	@cd ${ARC} && \
+	make migrate

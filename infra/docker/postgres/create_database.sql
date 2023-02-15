@@ -1,1 +1,2 @@
-CREATE DATABASE rust_sample;
+CREATE DATABASE mvc;
+CREATE DATABASE clean;
