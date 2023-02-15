@@ -1,4 +1,4 @@
-use axum::{http::StatusCode, response::IntoResponse, Json};
+use axum::{extract::Path, http::StatusCode, response::IntoResponse, Json};
 use chrono::NaiveDateTime;
 use serde::Serialize;
 use serde_json::json;
@@ -38,7 +38,7 @@ pub async fn create_user_con(Json(input): Json<UserInput>) -> impl IntoResponse 
     }
 }
 
-pub async fn get_user_con(id: uuid::Uuid) -> impl IntoResponse {
+pub async fn get_user_con(Path(id): Path<uuid::Uuid>) -> impl IntoResponse {
     let get = get_user(id).await;
 
     match get {
