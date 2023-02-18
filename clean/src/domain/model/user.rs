@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 pub struct UserId {
-    id: uuid::Uuid,
+    pub id: uuid::Uuid,
 }
 
 #[derive(Debug, Clone, Serialize)]
