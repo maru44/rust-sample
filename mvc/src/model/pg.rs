@@ -1,7 +1,6 @@
+use crate::utils::error::MyError;
 use once_cell::sync::Lazy;
 use sqlx::{postgres::PgPoolOptions, PgPool};
-
-use crate::utils::error::MyError;
 
 struct Config {
     postgres_host: String,
@@ -60,3 +59,12 @@ impl From<sqlx::Error> for MyError {
         MyError::Wrapped(anyhow::Error::new(error))
     }
 }
+
+// #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+// struct Uuid(uuid::Uuid);
+
+// impl From<sqlx::types::Uuid> for Uuid {
+//     fn from(value: sqlx::types::Uuid) -> Self {
+//         Uuid(uuid::Uuid::from_u128(value.as_u128()))
+//     }
+// }

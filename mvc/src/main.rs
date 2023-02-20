@@ -13,7 +13,7 @@ async fn main() {
     let app = Router::new()
         .route("/users", get(list_user_con))
         .route("/users", post(create_user_con))
-        .route("/users:id", get(get_user_con));
+        .route("/users/:id", get(get_user_con));
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 8001));
     tracing::debug!("listening on {}", addr);

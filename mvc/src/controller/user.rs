@@ -14,12 +14,12 @@ struct User {
     updated_at: NaiveDateTime,
 }
 
-impl User {
-    fn from(r: &UserRow) -> User {
+impl From<UserRow> for User {
+    fn from(r: UserRow) -> Self {
         User {
             id: uuid::Uuid::from_u128_le(r.id.to_u128_le()),
-            username: r.username.to_string(),
-            email: r.email.to_string(),
+            username: r.username,
+            email: r.email,
             created_at: r.created_at,
             updated_at: r.updated_at,
         }
@@ -47,7 +47,7 @@ pub async fn get_user_con(Path(id): Path<uuid::Uuid>) -> impl IntoResponse {
             (StatusCode::BAD_REQUEST, Json(json!({})))
         }
         Ok(u) => match u {
-            Some(u) => (StatusCode::OK, Json(json!(User::from(&u)))),
+            Some(u) => (StatusCode::OK, Json(json!(User::from(u)))),
             None => (StatusCode::NOT_FOUND, Json(json!({ "id": id }))),
         },
     }
@@ -62,7 +62,7 @@ pub async fn list_user_con() -> impl IntoResponse {
             (StatusCode::BAD_REQUEST, Json(json!({})))
         }
         Ok(us) => {
-            let users = us.iter().map(User::from).collect::<Vec<User>>();
+            let users = us.into_iter().map(User::from).collect::<Vec<User>>();
             return (StatusCode::OK, Json(json!(users)));
         }
     }
